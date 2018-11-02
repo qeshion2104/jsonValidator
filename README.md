@@ -13,21 +13,24 @@ type Person struct {
 }
 
 func MyHandler(w http.ResponseWriter, r *http.Request) {
-    body, err  := ioutil.ReadAll(r.Body)
+    	body, err  := ioutil.ReadAll(r.Body)
 
-	defer r.Body.Close()
-	if err !=  nil {
-		return err
-	}
-	person := &Person{}
-	// body is []byte as jsonData
-	err := jsonValidator.GetValidateJsonData(person, body)
-	if err !=  nil {
-		//Handle error
-		return err
-	}
+	if r.Header["Content-Type"][0]) == "application/json" {
+		body, err := ioutil.ReadAll(r.Body)
+		defer r.Body.Close()
+		if err !=  nil {
+			return err
+		}
+		person := &Person{}
+		// body is []byte as jsonData
+		err := jsonValidator.GetValidateJsonData(person, body)
+		if err !=  nil {
+			//Handle error
+			return err
+		}
 
-    // Do something with person.Name or person.Id
+    	// Do something with person.Name or person.Id
+	}
 }
 ```
 To define a member as required, use a struct tag "json" and contain "required". If not use "required", member will be ignore when doing check :
