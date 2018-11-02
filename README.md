@@ -13,8 +13,6 @@ type Person struct {
 }
 
 func MyHandler(w http.ResponseWriter, r *http.Request) {
-    	body, err  := ioutil.ReadAll(r.Body)
-
 	if r.Header["Content-Type"][0]) == "application/json" {
 		body, err := ioutil.ReadAll(r.Body)
 		defer r.Body.Close()
